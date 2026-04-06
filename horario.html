@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Horários de Coleta</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="container">
+        <h1 class="logo">
+            <a href="index.php">
+                <img src="img/mascote.png">
+                E-Coleta
+            </a>
+        </h1>
+
+        <nav>
+             <ul>
+                <li><a href="index.php">Início</a></li>
+                <li><a href="coleta.html">Coleta</a></li>
+                <li><a href="solicitacoes.html">Solicitações</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-content">
+
+        <div class="hero-text">
+            <h2>Consulte os horários de coleta</h2>
+            <p>Descubra quando o caminhão passa no seu bairro.</p>
+        </div>
+
+        <div class="hero-img">
+            <img src="img/mascote.png" class="mascote-hero">
+        </div>
+
+    </div>
+</section>
+
+<!-- CONTEÚDO -->
+<section class="container hidden">
+
+    <h2 style="text-align:center;">Buscar horário</h2>
+
+    <div style="text-align:center; margin-top:20px;">
+
+        <input type="text" id="bairro" placeholder="Digite seu bairro">
+
+        <select id="cidade">
+            <option value="">Selecione a cidade</option>
+            <option>Votorantim</option>
+            <option>Sorocaba</option>
+        </select>
+
+        <br>
+
+        <button onclick="buscarColeta()">Buscar</button>
+
+    </div>
+
+    <div id="resultado" style="margin-top:20px; text-align:center;"></div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 E-Coleta - Sustentabilidade inteligente</p>
+</footer>
+
+<!-- ANIMAÇÃO SCROLL -->
+<script>
+const elements = document.querySelectorAll('.hidden');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add('show');
+        }
+    });
+});
+
+elements.forEach(el => observer.observe(el));
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
