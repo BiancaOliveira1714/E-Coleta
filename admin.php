@@ -1,69 +1,32 @@
 <?php
-include("conexao.php");
+session_start();
+include 'conectar.php';
 
-$sql = "SELECT * FROM solicitacoes";
-
-$resultado = mysqli_query($conexao,$sql);
-?>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-
-<title>Painel Admin</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-
-<h1>Painel Administrativo</h1>
-
-<table>
-
-<tr>
-
-<th>ID</th>
-<th>Nome</th>
-<th>Endereço</th>
-<th>Tipo</th>
-<th>Descrição</th>
-<th>Ação</th>
-
-</tr>
-
-<?php
-
-while($linha = mysqli_fetch_assoc($resultado)){
-
-echo "<tr>";
-
-echo "<td>".$linha['id']."</td>";
-
-echo "<td>".$linha['nome']."</td>";
-
-echo "<td>".$linha['endereco']."</td>";
-
-echo "<td>".$linha['tipo_lixo']."</td>";
-
-echo "<td>".$linha['descricao']."</td>";
-
-echo "<td>
-
-<a href='excluir.php?id=".$linha['id']."'>Excluir</a>
-
-</td>";
-
-echo "</tr>";
-
+if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] != 'admin') {
+    header("Location: index.php");
+    exit;
 }
-
 ?>
 
-</table>
+if ($tipo == "admin") {
 
-</body>
+    $sql = "SELECT * FROM administradores WHERE usuario = '$usuario'";
+    $resultado = $conn->query($sql);
 
-</html>
+    if ($resultado->num_rows > 0) {
+        $dados = $resultado->fetch_assoc();
+
+        if (password_verify($senha, $dados['senha'])) {
+
+            $_SESSION['admin'] = $usuario;
+            header("Location: painel_admin.php");
+            exit;
+
+        } else {
+            $erro = "Senha incorreta!";
+        }
+
+    } else {
+        $erro = "Admin não encontrado!";
+    }
+}
